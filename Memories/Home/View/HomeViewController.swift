@@ -29,17 +29,13 @@ class HomeViewController: UIViewController, UITableViewDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .cyan
-        view.addSubview(tableView)
-        tableView.heightAnchor.constraint(equalTo: view.heightAnchor).isActive = true
-        tableView.widthAnchor.constraint(equalTo: view.widthAnchor).isActive = true
-        tableView.delegate = self
-        tableView.dataSource = self
+        layout()
+        bind()
         tableView.reloadData()
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = UITableViewCell(style: .default, reuseIdentifier: Constants.Identifier)
+       let cell = tableView.dequeueReusableCell(withIdentifier:  AlbumTableViewCell.Constants.identifier, for: indexPath)
         let view = UIView(frame: CGRect(x: 0, y: 0, width: (cell.frame.width * 0.8), height: (cell.frame.height)))
         view.backgroundColor = .orange
         let animation = AnimationType.random()
@@ -47,17 +43,30 @@ class HomeViewController: UIViewController, UITableViewDelegate {
         cell.addSubview(view)
         return cell
     }
+    
+    func bind() {
+        tableView.delegate = self
+        tableView.dataSource = self
+        tableView.register(AlbumTableViewCell.self, forCellReuseIdentifier: AlbumTableViewCell.Constants.identifier)
+    }
 
 }
 
 extension HomeViewController: UITableViewDataSource {
     
+    func layout() {
+        view.backgroundColor = .cyan
+        view.addSubview(tableView)
+        tableView.heightAnchor.constraint(equalTo: view.heightAnchor).isActive = true
+        tableView.widthAnchor.constraint(equalTo: view.widthAnchor).isActive = true
+    }
+    
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 10
+        return 1
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
+        return 10
     }
 }
 
