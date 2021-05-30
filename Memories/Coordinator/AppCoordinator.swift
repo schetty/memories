@@ -5,12 +5,32 @@
 //  Created by Naomi Schettini on 5/30/21.
 //
 
-import Foundation
+import UIKit
 
-enum HomeRouter {
-    
-}
+final public class AppCoordinator: Coordinator {
+    // MARK: - Properties
 
-final public class AppCoordinator: NSObject {
+    let navigationController: UINavigationController
+
+    // MARK: - Private properties
+
+    private let window: UIWindow
+
+    // MARK: - Init
+
+    init(window: UIWindow) {
+        self.navigationController = UINavigationController()
+        self.window = window
+    }
     
+    // MARK: - Methods
+
+       func start() {
+           window.rootViewController = navigationController
+           window.makeKeyAndVisible()
+
+           let homeCoordinator = HomeCoordinator(navigationController: navigationController)
+           homeCoordinator.start()
+       }
+
 }

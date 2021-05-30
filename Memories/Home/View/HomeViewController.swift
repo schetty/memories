@@ -8,25 +8,34 @@
 import UIKit
 import ViewAnimator
 
-fileprivate struct Constants {
-    static let Identifier = "PhotoCellIdentifier"
-    static let TableViewCellInset: CGFloat = 5.0
-}
+
 
 class HomeViewController: UIViewController, UITableViewDelegate {
     
+    // MARK: - Constants
+    private struct Constants {
+        static let Identifier = "PhotoCellIdentifier"
+        static let TableViewCellInset: CGFloat = 5.0
+    }
+    
+    
+    // MARK: - UI
+
     lazy var tableView: UITableView = {
         let tv = UITableView()
         tv.translatesAutoresizingMaskIntoConstraints = false
         tv.separatorStyle = .none
         tv.separatorColor = .clear
         tv.rowHeight = UITableView.automaticDimension
-        tv.estimatedRowHeight = 80
+        tv.estimatedRowHeight = 150.0
         tv.backgroundColor = .magenta
-        tv.separatorInset = UIEdgeInsets(top: 5, left: Constants.TableViewCellInset, bottom: 5, right: Constants.TableViewCellInset)
+        tv.separatorInset = UIEdgeInsets(top: 0, left: Constants.TableViewCellInset, bottom: 0, right: Constants.TableViewCellInset)
         return tv
     }()
     
+    
+    // MARK: - Init
+
     override func viewDidLoad() {
         super.viewDidLoad()
         layout()
@@ -34,23 +43,27 @@ class HomeViewController: UIViewController, UITableViewDelegate {
         tableView.reloadData()
     }
     
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-       let cell = tableView.dequeueReusableCell(withIdentifier:  AlbumTableViewCell.Constants.identifier, for: indexPath)
-        let view = UIView(frame: CGRect(x: 0, y: 0, width: (cell.frame.width * 0.8), height: (cell.frame.height)))
-        view.backgroundColor = .orange
-        let animation = AnimationType.random()
-        view.animate(animations: [animation])
-        cell.addSubview(view)
-        return cell
-    }
-    
     func bind() {
         tableView.delegate = self
         tableView.dataSource = self
         tableView.register(AlbumTableViewCell.self, forCellReuseIdentifier: AlbumTableViewCell.Constants.identifier)
     }
+    
+    
+    // MARK: - UITableView Delegate
+
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+       let cell = tableView.dequeueReusableCell(withIdentifier:  AlbumTableViewCell.Constants.identifier, for: indexPath)
+        return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+    }
 
 }
+
+// MARK: - UITableViewDataSource
 
 extension HomeViewController: UITableViewDataSource {
     
@@ -62,11 +75,11 @@ extension HomeViewController: UITableViewDataSource {
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
+        return 10
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 10
+        return 1
     }
 }
 
