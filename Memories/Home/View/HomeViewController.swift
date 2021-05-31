@@ -7,8 +7,11 @@
 
 import UIKit
 import ViewAnimator
-
-
+import Combine
+//
+//final class HomeViewModel {
+//    @Published var 
+//}
 
 class HomeViewController: UIViewController, UITableViewDelegate {
     
@@ -24,12 +27,9 @@ class HomeViewController: UIViewController, UITableViewDelegate {
     lazy var tableView: UITableView = {
         let tv = UITableView()
         tv.translatesAutoresizingMaskIntoConstraints = false
-        tv.separatorStyle = .none
-        tv.separatorColor = .clear
-        tv.rowHeight = UITableView.automaticDimension
-        tv.estimatedRowHeight = 150.0
-        tv.backgroundColor = .magenta
-        tv.separatorInset = UIEdgeInsets(top: 0, left: Constants.TableViewCellInset, bottom: 0, right: Constants.TableViewCellInset)
+        tv.separatorStyle = .singleLine
+        tv.separatorColor = .white
+        tv.separatorInset = UIEdgeInsets(top: 0, left: Constants.TableViewCellInset, bottom: 0, right: 0)
         return tv
     }()
     
@@ -40,7 +40,6 @@ class HomeViewController: UIViewController, UITableViewDelegate {
         super.viewDidLoad()
         layout()
         bind()
-        tableView.reloadData()
     }
     
     func bind() {
@@ -53,7 +52,14 @@ class HomeViewController: UIViewController, UITableViewDelegate {
     // MARK: - UITableView Delegate
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-       let cell = tableView.dequeueReusableCell(withIdentifier:  AlbumTableViewCell.Constants.identifier, for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier:  AlbumTableViewCell.Constants.identifier, for: indexPath)
+        switch indexPath.row {
+        case indexPath.row % 2:
+            cell.backgroundColor = GlobalConstants.Colors.AlbumListGradient.seaGreen
+        default:
+            cell.backgroundColor = GlobalConstants.Colors.AlbumListGradient.seaGreen
+        }
+
         return cell
     }
     
@@ -70,16 +76,19 @@ extension HomeViewController: UITableViewDataSource {
     func layout() {
         view.backgroundColor = .cyan
         view.addSubview(tableView)
-        tableView.heightAnchor.constraint(equalTo: view.heightAnchor).isActive = true
-        tableView.widthAnchor.constraint(equalTo: view.widthAnchor).isActive = true
+        
+        tableView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
+        tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+        tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
+        tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 10
+        return 1
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
+        return 10
     }
 }
 
