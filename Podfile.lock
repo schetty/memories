@@ -1,16 +1,55 @@
 PODS:
+  - MaterialComponents/AnimationTiming (124.2.0)
+  - MaterialComponents/Availability (124.2.0)
+  - MaterialComponents/Cards (124.2.0):
+    - MaterialComponents/Elevation
+    - MaterialComponents/Ink
+    - MaterialComponents/private/Icons/ic_check_circle
+    - MaterialComponents/private/Math
+    - MaterialComponents/Ripple
+    - MaterialComponents/ShadowLayer
+    - MaterialComponents/Shapes
+  - MaterialComponents/Elevation (124.2.0):
+    - MaterialComponents/Availability
+    - MaterialComponents/private/Color
+    - MaterialComponents/private/Math
+  - MaterialComponents/Ink (124.2.0):
+    - MaterialComponents/Availability
+    - MaterialComponents/private/Color
+    - MaterialComponents/private/Math
+  - MaterialComponents/private/Color (124.2.0):
+    - MaterialComponents/Availability
+  - MaterialComponents/private/Icons/Base (124.2.0)
+  - MaterialComponents/private/Icons/ic_check_circle (124.2.0):
+    - MaterialComponents/private/Icons/Base
+  - MaterialComponents/private/Math (124.2.0)
+  - MaterialComponents/Ripple (124.2.0):
+    - MaterialComponents/AnimationTiming
+    - MaterialComponents/Availability
+    - MaterialComponents/private/Color
+    - MaterialComponents/private/Math
+  - MaterialComponents/ShadowElevations (124.2.0)
+  - MaterialComponents/ShadowLayer (124.2.0):
+    - MaterialComponents/ShadowElevations
+  - MaterialComponents/Shapes (124.2.0):
+    - MaterialComponents/private/Color
+    - MaterialComponents/private/Math
+    - MaterialComponents/ShadowLayer
   - ViewAnimator (3.0.2)
 
 DEPENDENCIES:
+  - MaterialComponents/Cards
   - ViewAnimator
 
 SPEC REPOS:
   trunk:
+    - MaterialComponents
     - ViewAnimator
 
 SPEC CHECKSUMS:
+  MaterialComponents: 1a9b2d9d45b1601ae544de85089adc4c464306d4
   ViewAnimator: 16435576cd44fca0b0d63147d5031fd3e91d295a
 
-PODFILE CHECKSUM: 8d23f4dc16e243385495a35a4fc84965aef6da25
+PODFILE CHECKSUM: eeb7e19598b866e7102bf0ccfc79f318250967dd
 
 COCOAPODS: 1.10.1

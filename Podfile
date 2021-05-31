@@ -6,4 +6,5 @@ target 'Memories' do
   use_frameworks!
   # Pods for Memories
   pod "ViewAnimator"
+  pod "MaterialComponents/Cards"
 end
