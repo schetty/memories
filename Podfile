@@ -7,4 +7,5 @@ target 'Memories' do
   # Pods for Memories
   pod "ViewAnimator"
   pod "MaterialComponents/Cards"
+  pod 'Alamofire', '~> 5.2'
 end

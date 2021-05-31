@@ -8,10 +8,20 @@
 import UIKit
 import ViewAnimator
 import Combine
+import SwiftUI
 //
 //final class HomeViewModel {
 //    @Published var 
 //}
+
+final class HomeViewModel: ObservableObject {
+    @Published private(set) var albums: [Album] = []
+    private let service = Service()
+    
+    func fetch() {
+        service.getAlbums()
+    }
+}
 
 class HomeViewController: UIViewController, UITableViewDelegate {
     
@@ -21,6 +31,9 @@ class HomeViewController: UIViewController, UITableViewDelegate {
         static let TableViewCellInset: CGFloat = 5.0
     }
     
+    private var viewModel: HomeViewModel!
+    private var cancellables: Set<AnyCancellable> = []
+
     
     // MARK: - UI
 
@@ -35,12 +48,23 @@ class HomeViewController: UIViewController, UITableViewDelegate {
     
     
     // MARK: - Init
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         layout()
+        bindViewModel()
         bind()
     }
+    
+    private func bindViewModel() {
+        viewModel = HomeViewModel()
+          viewModel.objectWillChange.sink { [weak self] in
+              guard let self = self else {
+                  return
+              }
+              print(self.viewModel.albums)
+          }.store(in: &cancellables)
+      }
     
     func bind() {
         tableView.delegate = self
@@ -49,10 +73,11 @@ class HomeViewController: UIViewController, UITableViewDelegate {
     }
     
     
+    
     // MARK: - UITableView Delegate
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier:  AlbumTableViewCell.Constants.identifier, for: indexPath)
+        guard let cell = presentAlbumListCell(indexPath) else { return UITableViewCell() }
         switch indexPath.row {
         case indexPath.row % 2:
             cell.backgroundColor = GlobalConstants.Colors.AlbumListGradient.seaGreen
@@ -64,7 +89,13 @@ class HomeViewController: UIViewController, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
+    }
+    
+    private func presentAlbumListCell(_ indexPath: IndexPath) -> AlbumTableViewCell? {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier:  AlbumTableViewCell.Constants.identifier, for: indexPath) as? AlbumTableViewCell else { return nil }
+        guard viewModel.albums.count > 0 else { return nil }
+        cell.configureAlbumListCell(viewModel.albums[indexPath.row], indexPath: indexPath)
+        return cell
     }
 
 }
