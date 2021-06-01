@@ -57,13 +57,12 @@ class HomeViewController: UIViewController, UITableViewDelegate {
         return tv
     }()
     
-    
-    // MARK: - Init
-    
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
     }
     
+    // MARK: - Init
+
     convenience init(viewModel: HomeViewModel? = nil) {
         self.init()
         self.viewModel = viewModel
@@ -75,7 +74,6 @@ class HomeViewController: UIViewController, UITableViewDelegate {
         bind()
         layout()
         bindViewModel()
-        
     }
     
     private func bindViewModel() {
@@ -101,6 +99,7 @@ class HomeViewController: UIViewController, UITableViewDelegate {
     
     
     // MARK: - UITableView Delegate
+    // TODO: - Navigate with Coordinator using Combine or RxCocoa Relay instead of pushing new view controller from the VC
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let detailsScreen = AlbumDetailsViewController()

@@ -6,7 +6,6 @@
 //
 
 import UIKit
-import ViewAnimator
 
 class AlbumDetailsViewController: UIViewController, UICollectionViewDelegateFlowLayout, UICollectionViewDelegate, UICollectionViewDataSource {
     
@@ -64,10 +63,11 @@ class AlbumDetailsViewController: UIViewController, UICollectionViewDelegateFlow
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: AlbumDetailsCollectionViewCell.Constants.identifier, for: indexPath) as? AlbumDetailsCollectionViewCell else { return UICollectionViewCell() }
         
         guard let a = albums else { return cell }
+        cell.title = a[indexPath.row].url
         GetImageAdapter.getImage(from: a[indexPath.row].url) { img in
             cell.image = img
+            cell.configureCardSpecs()
         }
-        cell.title = a[indexPath.row].url
         return cell
     }
 }
