@@ -41,6 +41,5 @@ class AlbumDetailsViewController: UIViewController {
         stack.widthAnchor.constraint(equalTo: view.widthAnchor).isActive = true
         
         let label = UILabel()
-        label.text =
     }
 }
