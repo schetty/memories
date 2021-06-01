@@ -15,6 +15,7 @@ class AlbumDetailsViewController: UIViewController, UICollectionViewDelegateFlow
         static let CellHeight: CGFloat = 130
         static let sideMargin: CGFloat = 16.0
         static let collectionCellWidth: CGFloat = 140
+        static let Title = "details grouped by album ID"
     }
     
     lazy var collectionView: UICollectionView = {
@@ -43,6 +44,7 @@ class AlbumDetailsViewController: UIViewController, UICollectionViewDelegateFlow
     
     // MARK: - Init
     override func viewDidLoad() {
+        title = Constants.Title
         layout()
         bind()
         collectionView.reloadData()
@@ -63,7 +65,7 @@ class AlbumDetailsViewController: UIViewController, UICollectionViewDelegateFlow
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: AlbumDetailsCollectionViewCell.Constants.identifier, for: indexPath) as? AlbumDetailsCollectionViewCell else { return UICollectionViewCell() }
         
         guard let a = albums else { return cell }
-        cell.title = a[indexPath.row].url
+        cell.title = a[indexPath.row].title
         GetImageAdapter.getImage(from: a[indexPath.row].url) { img in
             cell.image = img
             cell.configureCardSpecs()

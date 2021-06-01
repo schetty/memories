@@ -38,6 +38,7 @@ class HomeViewController: UIViewController, UITableViewDelegate {
     private struct Constants {
         static let Identifier = "PhotoCellIdentifier"
         static let TableViewCellInset: CGFloat = 5.0
+        static let Title = "All Albums"
     }
     
     private var viewModel: HomeViewModel!
@@ -71,6 +72,7 @@ class HomeViewController: UIViewController, UITableViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         viewModel.fetch()
+        title = Constants.Title
         bind()
         layout()
         bindViewModel()
