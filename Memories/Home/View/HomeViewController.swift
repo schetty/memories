@@ -75,6 +75,7 @@ class HomeViewController: UIViewController, UITableViewDelegate {
         bind()
         layout()
         bindViewModel()
+        
     }
     
     private func bindViewModel() {
@@ -97,7 +98,6 @@ class HomeViewController: UIViewController, UITableViewDelegate {
         tableView.delegate = self
         tableView.register(AlbumTableViewCell.self, forCellReuseIdentifier: AlbumTableViewCell.Constants.identifier)
     }
-    
     
     
     // MARK: - UITableView Delegate
