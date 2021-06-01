@@ -19,11 +19,17 @@ final class HomeViewModel: ObservableObject {
     private let service = Service()
     
     func fetch() {
-        service.getAlbums()
+        service.getAlbums { items in
+            guard let list = items else { return }
+            self.albums = list
+        }
     }
 }
 
+
+
 class HomeViewController: UIViewController, UITableViewDelegate {
+    
     
     // MARK: - Constants
     private struct Constants {
@@ -32,16 +38,17 @@ class HomeViewController: UIViewController, UITableViewDelegate {
     }
     
     private var viewModel: HomeViewModel!
-    private var cancellables: Set<AnyCancellable> = []
-
+    private var subscriptions = Set<AnyCancellable>()
+    private var dataSource: AlbumListDataSource<Album>!
     
     // MARK: - UI
-
+    
     lazy var tableView: UITableView = {
         let tv = UITableView()
         tv.translatesAutoresizingMaskIntoConstraints = false
         tv.separatorStyle = .singleLine
         tv.separatorColor = .white
+        tv.isUserInteractionEnabled = true
         tv.separatorInset = UIEdgeInsets(top: 0, left: Constants.TableViewCellInset, bottom: 0, right: 0)
         return tv
     }()
@@ -49,46 +56,46 @@ class HomeViewController: UIViewController, UITableViewDelegate {
     
     // MARK: - Init
     
+    convenience init(viewModel: HomeViewModel? = nil) {
+        self.init()
+        self.viewModel = viewModel
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        viewModel.fetch()
+        bind()
         layout()
         bindViewModel()
-        bind()
     }
     
     private func bindViewModel() {
-        viewModel = HomeViewModel()
-          viewModel.objectWillChange.sink { [weak self] in
-              guard let self = self else {
-                  return
-              }
-              print(self.viewModel.albums)
-          }.store(in: &cancellables)
-      }
+        
+        guard let ds = self.dataSource else { return }
+        viewModel.$albums.receive(on: DispatchQueue.main)
+            .sink { [weak self] albums in
+                guard let self = self else {
+                    return
+                }
+                ds.setList(albums)
+                self.tableView.reloadData()
+            }.store(in: &subscriptions)
+    }
     
     func bind() {
+        let dataSource = AlbumListDataSource<Album>(albums: viewModel.albums)
+        self.dataSource = dataSource
+        tableView.dataSource = dataSource
         tableView.delegate = self
-        tableView.dataSource = self
         tableView.register(AlbumTableViewCell.self, forCellReuseIdentifier: AlbumTableViewCell.Constants.identifier)
     }
     
     
     
     // MARK: - UITableView Delegate
-
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = presentAlbumListCell(indexPath) else { return UITableViewCell() }
-        switch indexPath.row {
-        case indexPath.row % 2:
-            cell.backgroundColor = GlobalConstants.Colors.AlbumListGradient.seaGreen
-        default:
-            cell.backgroundColor = GlobalConstants.Colors.AlbumListGradient.seaGreen
-        }
-
-        return cell
-    }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        print("tapped")
     }
     
     private func presentAlbumListCell(_ indexPath: IndexPath) -> AlbumTableViewCell? {
@@ -97,13 +104,10 @@ class HomeViewController: UIViewController, UITableViewDelegate {
         cell.configureAlbumListCell(viewModel.albums[indexPath.row], indexPath: indexPath)
         return cell
     }
-
+    
 }
 
-// MARK: - UITableViewDataSource
-
-extension HomeViewController: UITableViewDataSource {
-    
+extension HomeViewController {
     func layout() {
         view.backgroundColor = .cyan
         view.addSubview(tableView)
@@ -113,13 +117,38 @@ extension HomeViewController: UITableViewDataSource {
         tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
         tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
     }
+}
+
+// MARK: - UITableViewDataSource
+
+class AlbumListDataSource<Identifiable>: NSObject, UITableViewDataSource {
+    var albums: [Album]
     
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
+    init(albums: [Album]) {
+        self.albums = albums
     }
     
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 10
+    func setList(_ list: [Album]) {
+        self.albums = list
+    }
+    
+    func tableView(_ tableView: UITableView,
+                   numberOfRowsInSection section: Int) -> Int {
+        return albums.count
+    }
+    
+    func tableView(_ tableView: UITableView,
+                   cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let album = albums[indexPath.row]
+        let cell = tableView.dequeueReusableCell(
+            withIdentifier: AlbumTableViewCell.Constants.identifier,
+            for: indexPath
+        )
+        
+        cell.textLabel?.text = album.title
+        cell.detailTextLabel?.text = album.url
+        
+        return cell
     }
 }
 

@@ -14,7 +14,7 @@ class HomeCoordinator {
     // MARK: - Properties
     
     let navigationController: UINavigationController
-    
+    let viewModel: HomeViewModel = HomeViewModel()
     
     // MARK: - Init
     
@@ -26,7 +26,7 @@ class HomeCoordinator {
     // MARK: - Methods
     
     func start() {
-        let homeScreen = HomeViewController()
+        let homeScreen = HomeViewController(viewModel: self.viewModel)
         navigationController.pushViewController(homeScreen, animated: true)
     }
     

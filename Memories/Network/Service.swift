@@ -27,18 +27,17 @@ class Service: ObservableObject {
     @Published var albums = [Album]()
     
     init() {
-        getAlbums()
     }
     
-    func getAlbums() {
+    func getAlbums(_ completion: @escaping ([Album]?) -> Void) {
         AF.request(url)
             .responseJSON { response in
                 switch response.result {
-                case .success(let encodedAlbums):
-                    guard let albumData = encodedAlbums as? Data else { return }
-                    let albums: [Album] =  try! JSONDecoder().decode([Album].self,
-                                                                     from: albumData)
-                    print(albums)
+                case .success:
+                    guard let albumData = response.data else { return }
+                    let albums: [Album] = try! JSONDecoder().decode([Album].self,
+                                                                    from: albumData)
+                    completion(albums)
                 case .failure(let error):
                     print(error)
                 }
