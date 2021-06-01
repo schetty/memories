@@ -21,6 +21,7 @@
 		396F9B692664847400F252F6 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 396F9B682664847400F252F6 /* Constants.swift */; };
 		396F9B6B2664918700F252F6 /* Service.swift in Sources */ = {isa = PBXBuildFile; fileRef = 396F9B6A2664918700F252F6 /* Service.swift */; };
 		396F9B6F266492A100F252F6 /* Album.swift in Sources */ = {isa = PBXBuildFile; fileRef = 396F9B6E266492A100F252F6 /* Album.swift */; };
+		39CB6CDA2665C97100B55D81 /* GetImageAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39CB6CD92665C97100B55D81 /* GetImageAdapter.swift */; };
 		52151B33642435A8ECE75156 /* Pods_Memories.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 17EF36B3650C995390E43106 /* Pods_Memories.framework */; };
 /* End PBXBuildFile section */
 
@@ -43,6 +44,7 @@
 		396F9B682664847400F252F6 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		396F9B6A2664918700F252F6 /* Service.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Service.swift; sourceTree = "<group>"; };
 		396F9B6E266492A100F252F6 /* Album.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Album.swift; sourceTree = "<group>"; };
+		39CB6CD92665C97100B55D81 /* GetImageAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetImageAdapter.swift; sourceTree = "<group>"; };
 		9C737FF869BB2AB49F433662 /* Pods-Memories.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Memories.debug.xcconfig"; path = "Target Support Files/Pods-Memories/Pods-Memories.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -199,6 +201,7 @@
 			isa = PBXGroup;
 			children = (
 				396F9B6A2664918700F252F6 /* Service.swift */,
+				39CB6CD92665C97100B55D81 /* GetImageAdapter.swift */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -338,6 +341,7 @@
 				396F9B6726641E7C00F252F6 /* HomeCoordinator.swift in Sources */,
 				396F9B3B2663E61D00F252F6 /* AppDelegate.swift in Sources */,
 				396F9B5B2663E99C00F252F6 /* AppCoordinator.swift in Sources */,
+				39CB6CDA2665C97100B55D81 /* GetImageAdapter.swift in Sources */,
 				396F9B692664847400F252F6 /* Constants.swift in Sources */,
 				396F9B452663E61D00F252F6 /* memories.xcdatamodeld in Sources */,
 				396F9B3D2663E61D00F252F6 /* SceneDelegate.swift in Sources */,

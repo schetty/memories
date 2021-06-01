@@ -10,7 +10,6 @@ import Combine
 
 class HomeCoordinator {
     
-    
     // MARK: - Properties
     
     let navigationController: UINavigationController
@@ -27,12 +26,8 @@ class HomeCoordinator {
     
     func start() {
         let homeScreen = HomeViewController(viewModel: self.viewModel)
-        navigationController.pushViewController(homeScreen, animated: true)
-    }
-    
-    func navigateToDetailsScreen() {
-        let detailsScreen = AlbumDetailsViewController()
-        navigationController.pushViewController(detailsScreen, animated: true)
+        navigationController.viewControllers.append(homeScreen)
+        navigationController.popToRootViewController(animated: true)
     }
     
 }

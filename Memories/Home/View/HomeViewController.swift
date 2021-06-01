@@ -16,6 +16,7 @@ import SwiftUI
 
 final class HomeViewModel: ObservableObject {
     @Published private(set) var albums: [Album] = []
+    
     private let service = Service()
     
     func fetch() {
@@ -49,12 +50,17 @@ class HomeViewController: UIViewController, UITableViewDelegate {
         tv.separatorStyle = .singleLine
         tv.separatorColor = .white
         tv.isUserInteractionEnabled = true
+        tv.rowHeight = 170.0
         tv.separatorInset = UIEdgeInsets(top: 0, left: Constants.TableViewCellInset, bottom: 0, right: 0)
         return tv
     }()
     
     
     // MARK: - Init
+    
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
+    }
     
     convenience init(viewModel: HomeViewModel? = nil) {
         self.init()
@@ -95,16 +101,9 @@ class HomeViewController: UIViewController, UITableViewDelegate {
     // MARK: - UITableView Delegate
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        print("tapped")
+        let detailsScreen = AlbumDetailsViewController()
+        navigationController?.pushViewController(detailsScreen, animated: true)
     }
-    
-    private func presentAlbumListCell(_ indexPath: IndexPath) -> AlbumTableViewCell? {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier:  AlbumTableViewCell.Constants.identifier, for: indexPath) as? AlbumTableViewCell else { return nil }
-        guard viewModel.albums.count > 0 else { return nil }
-        cell.configureAlbumListCell(viewModel.albums[indexPath.row], indexPath: indexPath)
-        return cell
-    }
-    
 }
 
 extension HomeViewController {
@@ -137,17 +136,21 @@ class AlbumListDataSource<Identifiable>: NSObject, UITableViewDataSource {
         return albums.count
     }
     
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
+    }
+    
     func tableView(_ tableView: UITableView,
                    cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let album = albums[indexPath.row]
-        let cell = tableView.dequeueReusableCell(
+        guard let cell = tableView.dequeueReusableCell(
             withIdentifier: AlbumTableViewCell.Constants.identifier,
             for: indexPath
-        )
-        
-        cell.textLabel?.text = album.title
-        cell.detailTextLabel?.text = album.url
-        
+        ) as? AlbumTableViewCell else { return UITableViewCell() }
+        cell.configureAlbumListCell(album)
+        GetImageAdapter.getImage(from: album.thumbnailUrl) { img in
+            cell.imageView?.image = img
+        }
         return cell
     }
 }
