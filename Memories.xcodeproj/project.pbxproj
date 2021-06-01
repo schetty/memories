@@ -14,7 +14,6 @@
 		396F9B472663E62200F252F6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 396F9B462663E62200F252F6 /* Assets.xcassets */; };
 		396F9B4A2663E62200F252F6 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 396F9B482663E62200F252F6 /* LaunchScreen.storyboard */; };
 		396F9B5B2663E99C00F252F6 /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 396F9B5A2663E99C00F252F6 /* AppCoordinator.swift */; };
-		396F9B5F2664032000F252F6 /* AlbumTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 396F9B5E2664032000F252F6 /* AlbumTableViewCell.swift */; };
 		396F9B622664104D00F252F6 /* AlbumDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 396F9B612664104D00F252F6 /* AlbumDetailsViewController.swift */; };
 		396F9B6526641AD400F252F6 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 396F9B6426641AD400F252F6 /* Coordinator.swift */; };
 		396F9B6726641E7C00F252F6 /* HomeCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 396F9B6626641E7C00F252F6 /* HomeCoordinator.swift */; };
@@ -24,6 +23,7 @@
 		39CB6CDA2665C97100B55D81 /* GetImageAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39CB6CD92665C97100B55D81 /* GetImageAdapter.swift */; };
 		39CB6CDE2665F29800B55D81 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39CB6CDD2665F29800B55D81 /* Extensions.swift */; };
 		39CB6CE12665FDC500B55D81 /* AlbumDetailsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39CB6CE02665FDC500B55D81 /* AlbumDetailsCollectionViewCell.swift */; };
+		39CB6CE326668DDE00B55D81 /* AlbumTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39CB6CE226668DDE00B55D81 /* AlbumTableViewCell.swift */; };
 		52151B33642435A8ECE75156 /* Pods_Memories.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 17EF36B3650C995390E43106 /* Pods_Memories.framework */; };
 /* End PBXBuildFile section */
 
@@ -39,7 +39,6 @@
 		396F9B492663E62200F252F6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		396F9B4B2663E62200F252F6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		396F9B5A2663E99C00F252F6 /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
-		396F9B5E2664032000F252F6 /* AlbumTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AlbumTableViewCell.swift; path = ../../../../../Documents/AlbumTableViewCell.swift; sourceTree = "<group>"; };
 		396F9B612664104D00F252F6 /* AlbumDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumDetailsViewController.swift; sourceTree = "<group>"; };
 		396F9B6426641AD400F252F6 /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
 		396F9B6626641E7C00F252F6 /* HomeCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCoordinator.swift; sourceTree = "<group>"; };
@@ -49,6 +48,7 @@
 		39CB6CD92665C97100B55D81 /* GetImageAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetImageAdapter.swift; sourceTree = "<group>"; };
 		39CB6CDD2665F29800B55D81 /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		39CB6CE02665FDC500B55D81 /* AlbumDetailsCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumDetailsCollectionViewCell.swift; sourceTree = "<group>"; };
+		39CB6CE226668DDE00B55D81 /* AlbumTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlbumTableViewCell.swift; sourceTree = "<group>"; };
 		9C737FF869BB2AB49F433662 /* Pods-Memories.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Memories.debug.xcconfig"; path = "Target Support Files/Pods-Memories/Pods-Memories.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -181,7 +181,7 @@
 		396F9B5D266401A500F252F6 /* Cells */ = {
 			isa = PBXGroup;
 			children = (
-				396F9B5E2664032000F252F6 /* AlbumTableViewCell.swift */,
+				39CB6CE226668DDE00B55D81 /* AlbumTableViewCell.swift */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -354,6 +354,7 @@
 				396F9B3F2663E61D00F252F6 /* HomeViewController.swift in Sources */,
 				396F9B6726641E7C00F252F6 /* HomeCoordinator.swift in Sources */,
 				396F9B3B2663E61D00F252F6 /* AppDelegate.swift in Sources */,
+				39CB6CE326668DDE00B55D81 /* AlbumTableViewCell.swift in Sources */,
 				396F9B5B2663E99C00F252F6 /* AppCoordinator.swift in Sources */,
 				39CB6CE12665FDC500B55D81 /* AlbumDetailsCollectionViewCell.swift in Sources */,
 				39CB6CDA2665C97100B55D81 /* GetImageAdapter.swift in Sources */,
@@ -361,7 +362,6 @@
 				396F9B452663E61D00F252F6 /* memories.xcdatamodeld in Sources */,
 				396F9B3D2663E61D00F252F6 /* SceneDelegate.swift in Sources */,
 				396F9B6B2664918700F252F6 /* Service.swift in Sources */,
-				396F9B5F2664032000F252F6 /* AlbumTableViewCell.swift in Sources */,
 				396F9B622664104D00F252F6 /* AlbumDetailsViewController.swift in Sources */,
 				39CB6CDE2665F29800B55D81 /* Extensions.swift in Sources */,
 			);
