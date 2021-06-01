@@ -20,11 +20,12 @@ class AlbumDetailsViewController: UIViewController {
         view.backgroundColor = GlobalConstants.Colors.AlbumListGradient.seaGreen
         return view
     }()
+    
+    var albums: [Album]? = nil
 
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
     }
-    
     
     
     // MARK: - Init

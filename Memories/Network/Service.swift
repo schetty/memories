@@ -37,15 +37,11 @@ class Service: ObservableObject {
                     guard let albumData = response.data else { return }
                     let albums: [Album] = try! JSONDecoder().decode([Album].self,
                                                                     from: albumData)
-                    let grouped = self.groupAlbumsById(albums)
-                    completion(grouped)
+                    completion(albums)
                 case .failure(let error):
                     print(error)
                 }
             }
     }
-    
-    private func groupAlbumsById(_ albums: [Album]) -> [Album] {
-        return albums.unique { $0.albumId }
-    }
+
 }

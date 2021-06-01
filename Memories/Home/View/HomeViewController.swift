@@ -11,15 +11,21 @@ import Combine
 import SwiftUI
 
 final class HomeViewModel: ObservableObject {
-    @Published private(set) var albums: [Album] = []
-    
+    var albums: [Album] = []
+    @Published private(set) var filteredAlbums: [Album] = []
+
     private let service = Service()
-    
+
     func fetch() {
         service.getAlbums { items in
             guard let list = items else { return }
             self.albums = list
+            self.filteredAlbums = self.groupAlbumsById(list)
         }
+    }
+    
+    func groupAlbumsById(_ albums: [Album]) -> [Album] {
+        return albums.unique { $0.albumId }
     }
 }
 
@@ -74,7 +80,7 @@ class HomeViewController: UIViewController, UITableViewDelegate {
     private func bindViewModel() {
         
         guard let ds = self.dataSource else { return }
-        viewModel.$albums.receive(on: DispatchQueue.main)
+        viewModel.$filteredAlbums.receive(on: DispatchQueue.main)
             .sink { [weak self] albums in
                 guard let self = self else {
                     return
@@ -85,7 +91,7 @@ class HomeViewController: UIViewController, UITableViewDelegate {
     }
     
     func bind() {
-        let dataSource = AlbumListDataSource<Album>(albums: viewModel.albums)
+        let dataSource = AlbumListDataSource<Album>(albums: viewModel.filteredAlbums)
         self.dataSource = dataSource
         tableView.dataSource = dataSource
         tableView.delegate = self
@@ -98,6 +104,9 @@ class HomeViewController: UIViewController, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let detailsScreen = AlbumDetailsViewController()
+        guard let vm = viewModel else { return }
+        let filtered = vm.albums.filter { $0.albumId == vm.albums[indexPath.row].albumId }
+        detailsScreen.albums = filtered
         navigationController?.pushViewController(detailsScreen, animated: true)
     }
 }
